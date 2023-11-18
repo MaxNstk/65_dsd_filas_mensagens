@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  django:
+    container_name: django
+    restart: always
+    build:
+      context: .
+      dockerfile: ./DockerFile
+    command: >
+      sh -c "
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+      - 3000:3000
+    # depends_on:
+  rabbitmq:
+    image: rabbitmq:3.7-alpine
+  
