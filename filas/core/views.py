@@ -1,21 +1,25 @@
 # views.py em uma das suas apps Django
 
 from django.http import HttpResponse
-from .tasks import print_for_loops
-
-def execute_task_view(request):
-    # Executa a task
-    task_result = print_for_loops.delay(10)
-    
-    # Resposta para o usuário
-    return HttpResponse("Task iniciada! ID da Task: " + str(task_result))
-
-# views.py
+from .tasks import print_for_loops, print_for_loops2
 from django.http import JsonResponse
 from .models import WorkerInfo
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.dateparse import parse_datetime
 import json
+
+def execute_task_view(request):
+    # Executa a task
+    task_result = print_for_loops.delay(10)
+    # Resposta para o usuário
+    return HttpResponse("Task iniciada! ID da Task: " + str(task_result))
+
+
+def execute_task2_view(request):
+    # Executa a task
+    task_result = print_for_loops2.delay(10)
+    # Resposta para o usuário
+    return HttpResponse("Task iniciada! ID da Task: " + str(task_result))
 
 @csrf_exempt
 def worker_info(request):
