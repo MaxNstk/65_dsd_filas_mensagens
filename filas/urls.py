@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from filas.core import views
 from filas.core.views import execute_task_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('execute-task/', execute_task_view, name='execute-task'),
+    path('worker_info/', views.worker_info, name='worker_info'),
+
 ]
+
