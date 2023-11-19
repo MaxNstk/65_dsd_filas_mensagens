@@ -19,9 +19,19 @@ services:
       - 3000:3000
     depends_on: 
       - rabbitmq
-
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.7-alpine
     ports:
       - 5672:5672
+  celery_flower:
+    container_name: 'celery_flower'
+    restart: always
+    build:
+      context: .
+      dockerfile: ./DockerFile
+    command: celery -A filas flower --port=5001
+    ports:
+      - 5001:5001
+    volumes:
+      - .:/code
