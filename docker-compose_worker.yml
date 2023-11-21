@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  celery_worker: 
+    container_name: 'celery_worker_dsd'
+    environment:
+      - DEBUG=${DEBUG}
+    restart: always
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    command: celery -A tars worker -l info
+    ports:
+        - 6900:6900
+    volumes:
+      - .:/code

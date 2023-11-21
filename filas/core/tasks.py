@@ -13,8 +13,8 @@ def print_for_loops(self, interations_amount):
 
 @shared_task
 def print_for_loops2(interations_amount):
-    for i in range(interations_amount):
-        print(f'Iteração: {i}')
+    # for i in range(interations_amount):
+    #     print(f'Iteração: {i}')
     requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json={})
 
 @shared_task
@@ -26,4 +26,4 @@ def send_worker_info(worker_name, task_id, task_status, execution_time, addition
         "execution_time": execution_time,
         "additional_info": additional_info
     }
-    requests.post("http://endereco_do_seu_servidor/worker_info/", json=data)
+    requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json=data)
