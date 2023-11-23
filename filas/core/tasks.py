@@ -11,7 +11,11 @@ def print_for_loops(self, interations_amount):
     # self.get_logger().info()
     for i in range(interations_amount):
         print(f'Iteração: {i}')
-    # requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json={})
+    response = requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json={})
+    print(response)
+    print(response)
+    print(response)
+    print(response)
 
 # @shared_task
 # def send_worker_info(worker_name, task_id, task_status, execution_time, additional_info=""):

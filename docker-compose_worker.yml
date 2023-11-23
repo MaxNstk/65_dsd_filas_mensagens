@@ -1,22 +1,6 @@
 version: '3.3'
 
 services:
-  django:
-    container_name: 'django_dsd2'
-    restart: always
-    build:
-      context: .
-      dockerfile: ./DockerFile
-    command: >
-      sh -c "
-        python manage.py migrate &&
-        python manage.py runserver 0.0.0.0:8000
-      "
-    volumes:
-      - .:/code
-    ports:
-      - 8000:8000
-      - 3000:3000
   celery_worker: 
     container_name: 'celery_worker_dsd'
     environment:
@@ -24,9 +8,20 @@ services:
     restart: always
     build: 
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./DockerFile
     command: celery -A filas worker -l info
     ports:
         - 6900:6900
+    volumes:
+      - .:/code
+  celery_flower:
+    container_name: 'celery_flower_dsd'
+    restart: always
+    build:
+      context: .
+      dockerfile: ./DockerFile
+    command: celery -A filas flower --port=5001
+    ports:
+      - 5001:5001
     volumes:
       - .:/code
