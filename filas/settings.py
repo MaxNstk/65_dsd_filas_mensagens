@@ -22,6 +22,8 @@ from decouple import config
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-8&d#u!ud#*b2=r$s2*(qeewnznn-0k6ldmb4&_&piz5ybq@3mj'
 
+ALLOWED_HOSTS = ['*']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

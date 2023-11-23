@@ -10,6 +10,9 @@ class WorkerInfoAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     
     def post(self, request, *args, **kwargs):
+        print(request)
+        print(request)
+        print(request)
         worker_info = WorkerInfo.objects.create()  # Create WorkerInfo object
         if worker_info:
             return Response({"status": "success"}, status=status.HTTP_200_OK)
