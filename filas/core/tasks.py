@@ -5,17 +5,12 @@ from filas.celery import app
 
 @app.task(bind=True)
 def print_for_loops(self, interations_amount):
-    # self.get_logger().info()
-    # self.get_logger().info()
-    # self.get_logger().info()
-    # self.get_logger().info()
-    for i in range(interations_amount):
-        print(f'Iteração: {i}')
-    response = requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json={})
+    
+    print(config('RABBIT_MQ_HOST'))
+    response = requests.post(f"http://{config('RABBIT_MQ_HOST')}:8000/worker_info/", json={})
     print(response)
     print(response)
-    print(response)
-    print(response)
+    print(response.__dict__)
 
 # @shared_task
 # def send_worker_info(worker_name, task_id, task_status, execution_time, additional_info=""):
