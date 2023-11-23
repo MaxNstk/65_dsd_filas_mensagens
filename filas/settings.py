@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'filas.core.apps.CoreConfig',
     'celery',
+    'rest_framework',
 
 ]
 

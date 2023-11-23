@@ -5,13 +5,13 @@ from filas.celery import app
 
 @app.task(bind=True)
 def print_for_loops(self, interations_amount):
-    self.get_logger().info()
-    self.get_logger().info()
-    self.get_logger().info()
-    self.get_logger().info()
+    # self.get_logger().info()
+    # self.get_logger().info()
+    # self.get_logger().info()
+    # self.get_logger().info()
     for i in range(interations_amount):
         print(f'Iteração: {i}')
-    requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json={})
+    # requests.post(f"http://{config('RABBIT_MQ_HOST')}/worker_info/", json={})
 
 # @shared_task
 # def send_worker_info(worker_name, task_id, task_status, execution_time, additional_info=""):
