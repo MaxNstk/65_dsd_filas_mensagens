@@ -6,6 +6,7 @@ services:
     environment:
       - DEBUG=${DEBUG}
     restart: always
+    network_mode: "host"
     build: 
       context: .
       dockerfile: ./DockerFile
