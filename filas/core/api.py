@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, authentication
-
+from datetime import datetime
 from filas.core.models import WorkerInfo
 
 
@@ -10,10 +10,12 @@ class WorkerInfoAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     
     def post(self, request, *args, **kwargs):
-        worker_info = WorkerInfo.objects.create(
-            
-        )  # Create WorkerInfo object
-        if worker_info:
-            return Response({"status": "success"}, status=status.HTTP_200_OK)
-        else:
-            return Response({"status": "failed"}, status=status.HTTP_400_BAD_REQUEST)
+        WorkerInfo.objects.create(
+            task_id=request.data['task_id'],
+            task_host_external_ip_address=request.data['local_ip_address'],
+            task_host_internal_ip_address=request.data['external_ip_address'],
+            request_host_external_ip_address=request.data['request_host_external_ip_address'],
+            request_host_internal_ip_address=request.data['request_host_internal_ip_address'],
+            execution_time=datetime.now(),
+        )
+        return Response({"status": "success"}, status=status.HTTP_200_OK)
