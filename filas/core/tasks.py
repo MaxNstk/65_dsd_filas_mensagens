@@ -12,17 +12,12 @@ def print_for_loops(self, interations_amount):
 
     response = requests.get('https://api.ipify.org?format=json')
     external_ip = response.json()['ip']
-
-    print('external_ip: '+external_ip)
-
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    print('ip_address: '+ip_address)
-    netifaces_ip_etho = netifaces.ifaddresses('eth0')
-    print('netifaces_ip_etho: '+netifaces_ip_etho)
-
+    print(self)
+    print(self.__dict__)
+    netifaces_ip_etho = netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
     response = requests.post(f"http://{config('RABBIT_MQ_HOST')}:8000/worker_info/", json={
-
+        'local_ip_address':netifaces_ip_etho,
+        'external_ip_address':external_ip
     })
 # @shared_task
 # def send_worker_info(worker_name, task_id, task_status, execution_time, additional_info=""):
