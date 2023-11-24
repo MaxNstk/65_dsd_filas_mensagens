@@ -24,22 +24,23 @@ services:
     image: rabbitmq:3.7-alpine
     ports:
       - 5672:5672
-  # celery_worker: 
-  #   container_name: 'celery_worker_dsd'
-  #   environment:
-  #     - DEBUG=${DEBUG}
-  #   restart: always
-  #   build: 
-  #     context: .
-  #     dockerfile: ./DockerFile
-  #   command: celery -A filas worker -l info
-  #   ports:
-  #     - 6900:6900
-  #   volumes:
-  #     - .:/code
-  #   depends_on:
-  #     - django
-  #     - rabbitmq
+      - 15672:15672 
+  celery_worker: 
+    container_name: 'celery_worker_dsd'
+    environment:
+      - DEBUG=${DEBUG}
+    restart: always
+    build: 
+      context: .
+      dockerfile: ./DockerFile
+    command: celery -A filas worker -l info
+    ports:
+      - 6900:6900
+    volumes:
+      - .:/code
+    depends_on:
+      - django
+      - rabbitmq
   celery_flower:
     container_name: 'celery_flower_dsd'
     restart: always
