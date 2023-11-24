@@ -4,3 +4,5 @@ flower==2.0.1
 python-decouple==3.8
 requests==2.31.0
 djangorestframework==3.14.0
+debugpy
+netifaces

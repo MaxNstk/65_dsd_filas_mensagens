@@ -2,16 +2,28 @@
 import requests
 from decouple import config
 from filas.celery import app
+import requests
+import socket
+import netifaces
+
 
 @app.task(bind=True)
 def print_for_loops(self, interations_amount):
-    
-    print(config('RABBIT_MQ_HOST'))
-    response = requests.post(f"http://{config('RABBIT_MQ_HOST')}:8000/worker_info/", json={})
-    print(response)
-    print(response)
-    print(response.__dict__)
 
+    response = requests.get('https://api.ipify.org?format=json')
+    external_ip = response.json()['ip']
+
+    print('external_ip: '+external_ip)
+
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    print('ip_address: '+ip_address)
+    netifaces_ip_etho = netifaces.ifaddresses('eth0')
+    print('netifaces_ip_etho: '+netifaces_ip_etho)
+
+    response = requests.post(f"http://{config('RABBIT_MQ_HOST')}:8000/worker_info/", json={
+
+    })
 # @shared_task
 # def send_worker_info(worker_name, task_id, task_status, execution_time, additional_info=""):
 #     data = {
