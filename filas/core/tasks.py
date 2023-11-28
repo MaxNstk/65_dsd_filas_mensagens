@@ -8,25 +8,23 @@ import socket
 
 
 @shared_task(bind=True)
-def get_host_info(self,request_host_external_ip_address, request_host_internal_ip_address):
+def get_host_info(self):
     response = requests.get('https://api.ipify.org?format=json')
-    external_ip = response.json()['ip']
+    task_external_ip_address = response.json()['ip']
     try:
-        netifaces_ip_etho = netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
+        task_internal_ip_address = netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
     except Exception as e:
         print(str(e))
         try:
             hostname = socket.gethostname()
-            netifaces_ip_etho = socket.gethostbyname(hostname)
+            task_internal_ip_address = socket.gethostbyname(hostname)
         except Exception as e:
             print(str(e))
-            netifaces_ip_etho = 'Indefinido'
+            task_internal_ip_address = 'Indefinido'
 
     response = requests.post(f"http://{config('RABBIT_MQ_HOST')}:8000/worker_info/", json={
         'task_id':self.request.id,
-        'local_ip_address':netifaces_ip_etho,
-        'external_ip_address':external_ip,
-        'request_host_external_ip_address':request_host_external_ip_address,
-        'request_host_internal_ip_address':request_host_internal_ip_address,
-
+        'worker_name':self.request.hostname,
+        'worker_host_external_ip_address':task_internal_ip_address,
+        'worker_host_internal_ip_address':task_external_ip_address,
     })

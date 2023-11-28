@@ -126,4 +126,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = f"amqp://guest:guest@{config('RABBIT_MQ_HOST')}:5672/"
+CELERY_BROKER_URL = f"amqp://{config('RABBIT_MQ_USER')}:{config('RABBIT_MQ_PASSWORD')}@{config('RABBIT_MQ_HOST')}:5672/"
