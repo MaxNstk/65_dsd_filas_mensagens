@@ -2,7 +2,8 @@
 from django.db import models
 
 class WorkerInfo(models.Model):
-    
+    auto_register_admin = False
+
     task_id = models.CharField(max_length=100,null=True,blank=True)
     creation_time = models.DateTimeField(auto_now_add=True)
 
