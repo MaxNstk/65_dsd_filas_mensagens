@@ -1,6 +1,5 @@
 
 import requests
-from decouple import config
 from filas.celery import shared_task
 import requests
 import netifaces
@@ -22,7 +21,7 @@ def get_host_info(self):
             print(str(e))
             task_internal_ip_address = 'Indefinido'
 
-    response = requests.post(f"http://{config('RABBIT_MQ_HOST')}:8000/worker_info/", json={
+    response = requests.post(f"http://django:8000/worker_info/", json={
         'task_id':self.request.id,
         'worker_name':self.request.hostname,
         'worker_host_external_ip_address':task_internal_ip_address,

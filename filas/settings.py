@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -126,4 +127,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = f"amqp://{config('RABBIT_MQ_USER')}:{config('RABBIT_MQ_PASSWORD')}@{config('RABBIT_MQ_HOST')}:5672/"
+#print(f"CELERY_BROKER_URL {CELERY_BROKER_URL}")
+#print(f"CELERY_BROKER_URL {CELERY_BROKER_URL}")
+
+
+#CELERY_BROKER_URL = f"amqp://{os.environ.get('RABBIT_MQ_USER')}:{os.environ.get('RABBIT_MQ_PASSWORD')}@rabbitmq:5672/"
+CELERY_BROKER_URL = f"amqp://guest:guest@rabbitmq:5672/"
+
+print(f'CELERY_BROKER_URL {CELERY_BROKER_URL}')
+print(f'CELERY_BROKER_URL {CELERY_BROKER_URL}')
+print(f'CELERY_BROKER_URL {CELERY_BROKER_URL}')

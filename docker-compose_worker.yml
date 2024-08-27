@@ -15,6 +15,34 @@ services:
         - 6900:6900
     volumes:
       - .:/code
+  celery_worker2: 
+    container_name: 'celery_worker_dsd'
+    environment:
+      - DEBUG=${DEBUG}
+    restart: always
+    network_mode: "host"
+    build: 
+      context: .
+      dockerfile: ./DockerFile
+    command: celery -A filas worker -l info
+    ports:
+        - 6901:6901
+    volumes:
+      - .:/code
+  celery_worker3: 
+    container_name: 'celery_worker_dsd'
+    environment:
+      - DEBUG=${DEBUG}
+    restart: always
+    network_mode: "host"
+    build: 
+      context: .
+      dockerfile: ./DockerFile
+    command: celery -A filas worker -l info
+    ports:
+        - 6902:6902
+    volumes:
+      - .:/code
   celery_flower:
     container_name: 'celery_flower_dsd'
     restart: always
