@@ -30,13 +30,13 @@ services:
       - rabbitmq
 
   rabbitmq:
-    image: rabbitmq:3.7-alpine
+    image: rabbitmq:4.0-management
     environment:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_USER: guest
     ports:
-      - '5672:5672'
-      - '15672:15672'
+      - 5672:5672
+      - 15672:15672
 
   celery_worker: 
     environment:
@@ -47,7 +47,7 @@ services:
       dockerfile: ./DockerFile
     command: celery -A filas worker -l info
     ports:
-        - '6900:6900'
+        - 6900:6900
     volumes:
       - .:/code
     depends_on:
@@ -63,7 +63,7 @@ services:
       dockerfile: ./DockerFile
     command: celery -A filas worker -l info
     ports:
-        - '6901:6901'
+        - 6901:6901
     volumes:
       - .:/code
     depends_on:
@@ -80,7 +80,7 @@ services:
       dockerfile: ./DockerFile
     command: celery -A filas worker -l info
     ports:
-        - '6902:6902'
+        - 6902:6902
     volumes:
       - .:/code
     depends_on:
